@@ -1,0 +1,69 @@
+﻿@viewModel App.ViewModels.DefaultViewModel, App
+@masterPage Views/MasterPage.dotmaster
+<dot:Content ContentPlaceHolderID="MainContent">
+
+    <div class="content">
+
+        <img src="/Resources/Images/tree.svg" class="content__background-image content__background-image--left" />
+
+        <a href="https://www.dotvvm.com/" target="_blank">
+            <img src="/Resources/Images/text.svg" class="content__image" />
+        </a>
+        <h1>PERSON REPORT FORM</h1>
+        
+        <img src="~/icon.png" width="15%" height="15%" />
+        <div class="content__text">
+
+            <bp:Window IsDisplayed="{value: IsWindowDisplayed}"
+                       HeaderText="Reporting form"
+                       CloseOnEscape="false"
+                       CloseOnOutsideClick="false">
+
+                <p>
+
+                    <h1>Person report</h1>
+                </p>
+                <p>
+                    <h4>Search by type:</h4>
+                <p />
+                <bp:CheckBox CheckedItems="{value: PersonTypes}"
+                             Changed="{command: UpdatePersonList()}"
+                             CheckedValue="{value: 1}" Text="Type A" />
+                <br />
+                <bp:CheckBox CheckedItems="{value: PersonTypes}"
+                             Changed="{command: UpdatePersonList()}"
+                             CheckedValue="{value: 2}" Text="Type B" />
+                </p>
+
+                <p>
+                    <h4>Search by text:</h4>
+                <p />
+                ID Number:
+                <bp:TextBox Text="{value: IdSearch}" Type="Number" class="page-input" Visible="{value: SearchByTextVisible}" />
+                <bp:Button Text="Search" Click="{command: SearchById()}" class="page-button" Visible="{value: SearchByTextVisible}" />
+                <p />
+
+                <h4>Report:</h4>
+
+                <bp:GridView DataSource="{value: Persons}" class="page-grid">
+                    <Columns>
+                        <bp:GridViewTextColumn Value="{value: Id}" HeaderText="Id" />
+                        <bp:GridViewTextColumn Value="{value: FirstName}" HeaderText="Firstname" />
+                        <bp:GridViewTextColumn Value="{value: LastName}" HeaderText="LastName" />
+                        <bp:GridViewTextColumn Value="{value: NamePersonType}" HeaderText="Type" />
+                    </Columns>
+                    <EmptyDataTemplate>
+                        There are no search results.
+                    </EmptyDataTemplate>
+                </bp:GridView>
+
+            </bp:Window>
+
+            <bp:Button Text="LOAD REPORT"
+                       Click="{command: IsWindowDisplayed = true}" />
+
+        </div>
+
+        <img src="/Resources/Images/tree.svg" class="content__background-image content__background-image content__background-image--right" />
+    </div>
+</dot:Content>
